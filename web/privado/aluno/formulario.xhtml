@@ -36,9 +36,9 @@
                 
                 <p:outputLabel value="Data de Nascimento" />
                 
-                <p:inputText id="txtData" value="#{controleAluno.objeto.nascimento}" size="10" maxlength="10" placeholder="Obrigatório">
+                <p:inputMask id="txtData" value="#{controleAluno.objeto.nascimento}" mask="99/99/9999">
                     <f:converter converterId="converterCalendar"/>
-                </p:inputText>
+                </p:inputMask>
               
             </p:panelGrid>
             </div>

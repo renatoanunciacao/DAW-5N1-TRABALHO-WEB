@@ -34,9 +34,9 @@
 
                         <p:outputLabel value="Data de Fundação" for="txtData"/>
 
-                        <p:inputText id="txtData" value="#{controleInstituicao.objeto.anoFundacao}" size="10" maxlength="10" placeholder="Obrigatório">
+                        <p:inputMask id="txtData" value="#{controleInstituicao.objeto.anoFundacao}" mask="99/99/9999" >
                             <f:converter converterId="converterCalendar"/>
-                        </p:inputText>
+                        </p:inputMask>
 
                     </p:panelGrid>
                 </div>

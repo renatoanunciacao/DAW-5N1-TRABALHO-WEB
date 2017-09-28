@@ -36,15 +36,15 @@
                 
                 <p:outputLabel value="Data de Nascimento" for="txtData"/>
                 
-                <p:inputText id="txtData" value="#{controleProfessor.objeto.nascimento}" size="10" maxlength="10" placeholder="Obrigatório">
+                <p:inputMask id="txtData" value="#{controleProfessor.objeto.nascimento}" mask="99/99/9999">
                     <f:converter converterId="converterCalendar"/>
-                </p:inputText>
+                </p:inputMask>
                 
                 <p:outputLabel value="Titulação" for="txtTitulacao"/>
                 <p:inputText id="txtTitulacao" value="#{controleProfessor.objeto.titulacao}" size="50" placeholder="Obrigatório"/>
                 
                 <p:outputLabel value="Tópicos de Interesse" for="txtTopicos"/>
-                <p:inputText id="txtTopicos" value="#{controleProfessor.objeto.topicosInteresse}" size="50" placeholder="Obrigatório"/>
+                <p:inputTextarea id="txtTopicos" value="#{controleProfessor.objeto.topicosInteresse}" />
                 
                  <p:outputLabel value="Especialidade" for="selectEspecialidade"/>
                  <p:selectOneMenu id="selectEspecialidade" value="#{controleProfessor.objeto.especialidade}">
