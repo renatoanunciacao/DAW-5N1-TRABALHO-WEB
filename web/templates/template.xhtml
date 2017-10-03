@@ -12,29 +12,50 @@
             <h:outputScript library="js" name="scripts.js"/>
         </h:head>
         <p:layout fullPage="true">
-            <p:layoutUnit position="north" header="Sistema de uma Instituição"
+            <p:layoutUnit position="north" header="Sistema Acadêmico"
                           style="text-align: center">
                 <h:form id="formMenu">
                     <p:megaMenu>
-                        <p:submenu label="Cadastros">
+                        <p:submenu label="Alunos">
                             <p:column>
-                                <p:submenu label="Básicos">
+                                <p:submenu label="Cadastros">
                                     <p:menuitem action="#{controleAluno.listar()}"
                                                 ajax="false"
                                                 value="Manutenção de Alunos"/>
+                                </p:submenu>
+
+                            </p:column>
+                        </p:submenu>
+                        <p:submenu label="Especialidades">
+                            <p:column>
+                                <p:submenu label="Cadastros">
                                     <p:menuitem action="#{controleEspecialidade.listar()}"
                                                 ajax="false"
                                                 value="Manutenção de Especialidades"/>
-                                    <p:menuitem action="#{controleProfessor.listar()}"
-                                                ajax="false"
-                                                value="Manutenção de Professores"/>
-                                    <p:menuitem action="#{controleInstituicao.listar()}"
-                                                ajax="false"
-                                                value="Manutenção de Instituições"/>
-                                    
                                 </p:submenu>
                             </p:column>
                         </p:submenu>
+                        <p:submenu label="Professores">
+                            <p:column>
+                                <p:submenu label="Cadastros">
+                                    <p:menuitem action="#{controleProfessor.listar()}"
+                                                ajax="false"
+                                                value="Manutenção de Professores"/>
+                                </p:submenu>
+                            </p:column>
+                        </p:submenu>
+                        <p:submenu label="Instituições">
+                            <p:column>
+                                <p:submenu label="Cadastros">
+                                    <p:menuitem action="#{controleInstituicao.listar()}"
+                                                ajax="false"
+                                                value="Manutenção de Instituições"/>
+                                </p:submenu>
+                            </p:column>
+                        </p:submenu>
+
+
+
 
                     </p:megaMenu>
                 </h:form>    
