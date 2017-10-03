@@ -18,51 +18,52 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean(name = "controleAluno")
 @SessionScoped
 public class ControleAluno {
+
     private AlunoDAO dao;
     private Aluno objeto;
-    
-    public ControleAluno(){
+
+    public ControleAluno() {
         dao = new AlunoDAO();
-        
+
     }
 
-    
-    public String listar(){
+    public String listar() {
         return "/privado/aluno/listar?faces-redirect=true";
     }
-    
-    public String novo(){
+
+    public String novo() {
         objeto = new Aluno();
         return "formulario?faces-redirect=true";
     }
-    
-    public String salvar(){
-        if(dao.salvar(objeto)){
+
+    public String salvar() {
+        if (dao.salvar(objeto)) {
             Util.mensagemInformacao(dao.getMensagem());
             return "listar?faces-redirect=true";
-        }else{
+        } else {
             Util.mensagemErro(dao.getMensagem());
             return "formulario?faces-redirect=true";
         }
     }
-    
-    public String cancelar(){
+
+    public String cancelar() {
         return "listar?faces-redirect=true";
     }
-    
-    public String editar(Integer id){
+
+    public String editar(Integer id) {
         objeto = dao.localizar(id);
         return "formulario?faces-redirect=true";
     }
-    
-    public void remover(Integer id){
+
+    public void remover(Integer id) {
         objeto = dao.localizar(id);
-        if(dao.remover(objeto)){
+        if (dao.remover(objeto)) {
             Util.mensagemInformacao(dao.getMensagem());
-        }else{
+        } else {
             Util.mensagemErro(dao.getMensagem());
         }
     }
+
     public AlunoDAO getDao() {
         return dao;
     }
