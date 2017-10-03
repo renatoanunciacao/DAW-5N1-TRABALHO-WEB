@@ -24,7 +24,7 @@ public class ProfessorDAO {
      }
 
        public List<Professor> getLista() {
-        return getEm().createQuery("from Professor order by nome").getResultList();
+        return getEm().createQuery("from Professor order by id").getResultList();
     }
     
      public boolean salvar(Professor obj) {

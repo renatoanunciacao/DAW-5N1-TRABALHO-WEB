@@ -25,7 +25,7 @@ public class InstituicaoDAO {
     }
 
        public List<Instituicao> getLista() {
-        return getEm().createQuery("from Instituicao order by nome").getResultList();
+        return getEm().createQuery("from Instituicao order by id").getResultList();
     }
     
      public boolean salvar(Instituicao obj) {

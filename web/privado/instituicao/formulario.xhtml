@@ -32,10 +32,10 @@
                         <p:inputText id="txtNome" value="#{controleInstituicao.objeto.nome}" size="50" maxlength="40" placeholder="Obrigatório"/>
 
 
-                        <p:outputLabel value="Data de Fundação" for="txtData"/>
+                        <p:outputLabel value="Ano de Fundação" for="txtData"/>
 
-                        <p:inputMask id="txtData" value="#{controleInstituicao.objeto.anoFundacao}" mask="99/99/9999" >
-                            <f:converter converterId="converterCalendar"/>
+                        <p:inputMask id="txtData" value="#{controleInstituicao.objeto.anoFundacao}" mask="9999" >
+                            <f:converter converterId="converterAno"/>
                         </p:inputMask>
 
                     </p:panelGrid>

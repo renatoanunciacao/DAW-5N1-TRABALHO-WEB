@@ -24,7 +24,7 @@ public class EspecialidadeDAO {
     }
     
     public List<Especialidade> getLista() {
-        return getEm().createQuery("from Especialidade order by nome").getResultList();
+        return getEm().createQuery("from Especialidade order by id").getResultList();
     }
     
      public boolean salvar(Especialidade obj) {

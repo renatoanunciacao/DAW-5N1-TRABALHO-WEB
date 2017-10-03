@@ -25,7 +25,7 @@ public class AlunoDAO {
     }
 
     public List<Aluno> getLista() {
-        return getEm().createQuery("from Aluno order by nome").getResultList();
+        return getEm().createQuery("from Aluno order by id").getResultList();
     }
     
      public boolean salvar(Aluno obj) {
