@@ -19,12 +19,12 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean(name = "controleProfessor")
 @SessionScoped
 public class controleProfessor {
-    private ProfessorDAO dao;
+    private ProfessorDAO<Professor> dao;
     private Professor objeto;
     private EspecialidadeDAO daoEspecialidade;
     
     public controleProfessor(){
-        dao = new ProfessorDAO();
+        dao = new ProfessorDAO<>();
         daoEspecialidade = new EspecialidadeDAO();
     }
 
@@ -38,7 +38,13 @@ public class controleProfessor {
     }
     
     public String salvar(){
-        if(dao.salvar(objeto)){
+        boolean persistiu;
+        if(objeto.getId() == null){
+            persistiu = dao.persist(objeto);
+        }else{
+            persistiu = dao.merge(objeto);
+        }
+        if(persistiu){
             Util.mensagemInformacao(dao.getMensagem());
             return "listar?faces-redirect=true";
         }else{

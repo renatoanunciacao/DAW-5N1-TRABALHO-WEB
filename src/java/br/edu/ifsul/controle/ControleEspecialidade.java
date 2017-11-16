@@ -18,48 +18,54 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean(name = "controleEspecialidade")
 @SessionScoped
 public class ControleEspecialidade {
-     private EspecialidadeDAO dao;
+
+    private EspecialidadeDAO<Especialidade> dao;
     private Especialidade objeto;
-    
-    public ControleEspecialidade(){
-        dao = new EspecialidadeDAO();
-        
+
+    public ControleEspecialidade() {
+        dao = new EspecialidadeDAO<>();
+
     }
 
-    
-    public String listar(){
+    public String listar() {
         return "/privado/especialidade/listar?faces-redirect=true";
     }
-    
-    public String novo(){
-        setObjeto(new Especialidade());
+
+    public String novo() {
+        objeto = new Especialidade();
         return "formulario?faces-redirect=true";
     }
-    
-    public String salvar(){
-        if(getDao().salvar(getObjeto())){
+
+    public String salvar() {
+        boolean persistiu;
+        if (objeto.getId() == null) {
+            persistiu = dao.persist(objeto);
+        } else {
+            persistiu = dao.merge(objeto);
+        }
+        if (persistiu) {
             Util.mensagemInformacao(getDao().getMensagem());
             return "listar?faces-redirect=true";
-        }else{
+        } else {
             Util.mensagemErro(getDao().getMensagem());
             return "formulario?faces-redirect=true";
         }
     }
-    
-    public String cancelar(){
+
+    public String cancelar() {
         return "listar?faces-redirect=true";
     }
-    
-    public String editar(Integer id){
-        setObjeto(getDao().localizar(id));
+
+    public String editar(Integer id) {
+        objeto = dao.localizar(id);
         return "formulario?faces-redirect=true";
     }
-    
-    public void remover(Integer id){
-        setObjeto(getDao().localizar(id));
-        if(getDao().remover(getObjeto())){
+
+    public void remover(Integer id) {
+        objeto = dao.localizar(id);
+        if (dao.remover(objeto)) {
             Util.mensagemInformacao(getDao().getMensagem());
-        }else{
+        } else {
             Util.mensagemErro(getDao().getMensagem());
         }
     }

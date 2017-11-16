@@ -19,11 +19,11 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class controleInstituicao {
 
-    private InstituicaoDAO dao;
+    private InstituicaoDAO<Instituicao> dao;
     private Instituicao objeto;
 
     public controleInstituicao() {
-        dao = new InstituicaoDAO();
+        dao = new InstituicaoDAO<>();
     }
 
     public String listar() {
@@ -36,7 +36,13 @@ public class controleInstituicao {
     }
 
     public String salvar() {
-        if (dao.salvar(objeto)) {
+        boolean persistiu;
+        if (objeto.getId() == null) {
+            persistiu = dao.persist(objeto);
+        } else {
+            persistiu = dao.merge(objeto);
+        }
+        if (persistiu) {
             Util.mensagemInformacao(dao.getMensagem());
             return "listar?faces-redirect=true";
         } else {

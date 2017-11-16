@@ -13,8 +13,50 @@
                 <p:growl/>
                 <p:commandButton value="Novo" action="#{controleProfessor.novo()}" ajax="false" icon="ui-icon-plus"/>
 
-                <p:dataTable value="#{controleProfessor.dao.lista}" var="obj">
+                
+                <div align="center">
+                    <p:panelGrid columns="11">
+                        <p:outputLabel value="Ordem: "/>
+                        <p:selectOneMenu value="#{controleProfessor.dao.ordem}">
+                            <f:selectItem itemLabel="ID" itemValue="id"/>
+                            <f:selectItem itemLabel="Nome" itemValue="nome"/>
+                            <f:selectItem itemLabel="E-mail" itemValue="email"/>
+                            <f:selectItem itemLabel="Data de Nascimento" itemValue="nascimento"/>
+                            <f:selectItem itemLabel="Titulação" itemValue="titulacao"/>
+                            <f:selectItem itemLabel="Tópicos de Interesse" itemValue="topicosInteresse"/>
+                            <f:selectItem itemLabel="Especialidade" itemValue="especialidade.nome"/>
+                            <p:ajax update="listagem" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Filtro: "/>
+                        <p:inputText value="#{controleProfessor.dao.filtro}" size="20">
+                            <p:ajax update="listagem" event="blur"/>
+                        </p:inputText>
+                        <p:commandButton value="Filtrar" icon="ui-icon-search"
+                                         update="listagem"/>
+                        <p:commandButton value="Primeiro"
+                                         actionListener="#{controleProfessor.dao.primeiro()}"
+                                         update="listagem"
+                                         icon="ui-icon-seek-first"/>
+                        <p:commandButton value="Anterior"
+                                         actionListener="#{controleProfessor.dao.anterior()}"
+                                         update="listagem" 
+                                         icon="ui-icon-seek-prev"/>                        
+                        <p:commandButton value="Próximo"
+                                         actionListener="#{controleProfessor.dao.proximo()}"
+                                         update="listagem"
+                                         icon="ui-icon-seek-next"/>  
+                        <p:commandButton value="Último"
+                                         actionListener="#{controleProfessor.dao.ultimo()}"
+                                         update="listagem" 
+                                         icon="ui-icon-seek-end"/>   
+                    </p:panelGrid>
+                </div>
 
+                <p:dataTable value="#{controleProfessor.dao.listaObjetos}" var="obj" id="listagem">
+
+                    <f:facet name="footer" >
+                        <p:outputLabel value="#{controleProfessor.dao.mensagemNavegacao}"/>
+                    </f:facet>
                     <p:column headerText="ID">
                         <p:outputLabel value="#{obj.id}"/>
                     </p:column>

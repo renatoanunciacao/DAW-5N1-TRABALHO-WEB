@@ -19,11 +19,11 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class ControleAluno {
 
-    private AlunoDAO dao;
+    private AlunoDAO<Aluno> dao;
     private Aluno objeto;
 
     public ControleAluno() {
-        dao = new AlunoDAO();
+        dao = new AlunoDAO<>();
 
     }
 
@@ -37,7 +37,13 @@ public class ControleAluno {
     }
 
     public String salvar() {
-        if (dao.salvar(objeto)) {
+        boolean persistiu;
+        if(objeto.getId() == null){
+            persistiu = dao.persist(objeto);
+        }else{
+            persistiu = dao.merge(objeto);
+        }
+        if (persistiu) {
             Util.mensagemInformacao(dao.getMensagem());
             return "listar?faces-redirect=true";
         } else {

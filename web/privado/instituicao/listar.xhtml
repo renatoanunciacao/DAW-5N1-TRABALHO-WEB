@@ -13,7 +13,44 @@
                 <p:growl/>
                 <p:commandButton value="Novo" action="#{controleInstituicao.novo()}" ajax="false" icon="ui-icon-plus"/>
 
-                <p:dataTable value="#{controleInstituicao.dao.lista}" var="obj">
+                <div align="center">
+                    <p:panelGrid columns="11">
+                        <p:outputLabel value="Ordem: "/>
+                        <p:selectOneMenu value="#{controleInstituicao.dao.ordem}">
+                            <f:selectItem itemLabel="ID" itemValue="id"/>
+                            <f:selectItem itemLabel="Nome" itemValue="nome"/>
+                            <f:selectItem itemLabel="Ano de Fundação" itemValue="anoFundacao"/>
+                            <p:ajax update="listagem" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Filtro: "/>
+                        <p:inputText value="#{controleInstituicao.dao.filtro}" size="20">
+                            <p:ajax update="listagem" event="blur"/>
+                        </p:inputText>
+                        <p:commandButton value="Filtrar" icon="ui-icon-search"
+                                         update="listagem"/>
+                         <p:commandButton value="Primeiro"
+                                          actionListener="#{controleInstituicao.dao.primeiro()}"
+                                         update="listagem"
+                                         icon="ui-icon-seek-first"/>
+                        <p:commandButton value="Anterior"
+                                         actionListener="#{controleInstituicao.dao.anterior()}"
+                                         update="listagem" 
+                                         icon="ui-icon-seek-prev"/>                        
+                        <p:commandButton value="Próximo"
+                                         actionListener="#{controleInstituicao.dao.proximo()}"
+                                         update="listagem"
+                                         icon="ui-icon-seek-next"/>  
+                        <p:commandButton value="Último"
+                                         actionListener="#{controleInstituicao.dao.ultimo()}"
+                                         update="listagem" 
+                                         icon="ui-icon-seek-end"/>   
+                    </p:panelGrid>
+                </div>
+                <p:dataTable value="#{controleInstituicao.dao.listaObjetos}" var="obj" id="listagem">
+                    
+                     <f:facet name="footer">
+                         <p:outputLabel value="#{controleInstituicao.dao.mensagemNavegacao}"/>
+                    </f:facet>
 
                     <p:column headerText="ID">
                         <p:outputLabel value="#{obj.id}"/>
