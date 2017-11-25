@@ -31,7 +31,7 @@
                             <p:ajax update="listagem" event="keyup"/>
                         </p:inputText>
                         <p:commandButton value="Filtrar" update="listagem"/>
-                        
+
                         <p:commandButton value="Primeiro"
                                          actionListener="#{controleAluno.dao.primeiro()}"
                                          update="listagem"/>
@@ -51,23 +51,23 @@
                     <f:facet name="footer">
                         <p:outputLabel value="#{controleAluno.dao.mensagemNavegacao}"/>
                     </f:facet>
-                     <p:column headerText="Id">
-                    <p:outputLabel value="#{obj.id}"/>
-                </p:column>
-                
-                <p:column headerText="Nome">
-                    <p:outputLabel value="#{obj.nome}"/>
-                </p:column>
-                
-                <p:column headerText="Email">
-                    <p:outputLabel value="#{obj.email}"/>
-                </p:column>
-                
-                <p:column headerText="Nascimento">
-                    <p:outputLabel value="#{obj.nascimento}">
-                        <f:converter converterId="converterCalendar"/>
-                    </p:outputLabel>
-                </p:column>
+                    <p:column headerText="Id">
+                        <p:outputLabel value="#{obj.id}"/>
+                    </p:column>
+
+                    <p:column headerText="Nome">
+                        <p:outputLabel value="#{obj.nome}"/>
+                    </p:column>
+
+                    <p:column headerText="Email">
+                        <p:outputLabel value="#{obj.email}"/>
+                    </p:column>
+
+                    <p:column headerText="Nascimento">
+                        <p:outputLabel value="#{obj.nascimento}">
+                            <f:converter converterId="converterCalendar"/>
+                        </p:outputLabel>
+                    </p:column>
 
                     <p:column headerText="Ações">
                         <div align="center">
@@ -88,7 +88,7 @@
         </ui:define>
         <ui:define name="dialogos">
             <p:dialog widgetVar="dlg" header="Edição" modal="true" resizable="false"
-                      position="center" width="480" height="220">
+                      position="center" width="480" height="245">
                 <h:form id="formEdicao">
                     <p:growl id="growl"/>
 
@@ -97,15 +97,9 @@
                             <div align="center">
                                 <p:panelGrid columns="2">
                                     <f:facet name="footer">
-                                        <div align="center">
-                                            <p:commandButton value="Salvar"
-                                                             icon="ui-icon-disk"
-                                                             actionListener="#{controleAluno.salvar()}"
-                                                             oncomplete="if(!args.validationFailed){PF('dlg').hide();}"
-                                                             update=":formEdicao :formListagem"/>
-                                        </div>
+
                                     </f:facet> 
-                                    
+
                                     <p:outputLabel value="ID" rendered="#{controleAluno.objeto.id != null}"/>
                                     <p:inputText value="#{controleAluno.objeto.id}" size="5" readonly="true" rendered="#{controleAluno.objeto.id != null}"/>
                                     <p:outputLabel value="Nome" for="txtNome"/>
@@ -120,26 +114,34 @@
 
                                     <p:outputLabel value="Data de Nascimento" for="txtNascimento"/>
                                     <p:calendar  
-                                            value="#{controleAluno.objeto.nascimento}"                                                                                 pattern="dd/MM/yyyy"
-                                                id="txtNascimento"
-                                                locale="pt_BR" size="12" mask="true">
-                                                <f:converter converterId="converterCalendar"/>
-                                   </p:calendar> 
-                                    
+                                        value="#{controleAluno.objeto.nascimento}"                                                                                 pattern="dd/MM/yyyy"
+                                        id="txtNascimento"
+                                        locale="pt_BR" size="12" mask="true">
+                                        <f:converter converterId="converterCalendar"/>
+                                    </p:calendar> 
+
                                 </p:panelGrid>
                             </div>
                         </p:tab>
                     </p:tabView>
+                    <p:panel>
+                        <div align="center">
+                            <p:commandButton value="Salvar"
+                                             icon="ui-icon-disk"
+                                             actionListener="#{controleAluno.salvar()}"
+                                             oncomplete="if(!args.validationFailed){PF('dlg').hide();}"
+                                             update=":formEdicao :formListagem"/>
+                        </div>
+                    </p:panel>
 
 
-                    
                 </h:form>
                 <ui:include src="/templates/ajaxstatus.xhtml"/>
             </p:dialog>
-            
-            
-            
-            
+
+
+
+
         </ui:define>
     </ui:composition> 
 </html>

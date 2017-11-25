@@ -8,10 +8,11 @@
     <ui:composition template="/templates/template.xhtml">
         <ui:define name="titulo">Listagem de Instituições</ui:define>
         <ui:define name="conteudo">
-            <h:form>
+            <h:form id="formListagem">
                 <p:messages/>
                 <p:growl/>
-                <p:commandButton value="Novo" action="#{controleInstituicao.novo()}" ajax="false" icon="ui-icon-plus"/>
+                <p:commandButton value="Novo" actionListener="#{controleInstituicao.novo()}" icon="ui-icon-plus"
+                                 process="@this" update=":formEdicao" oncomplete="PF('dlg').show();"/>
 
                 <div align="center">
                     <p:panelGrid columns="11">
@@ -28,8 +29,8 @@
                         </p:inputText>
                         <p:commandButton value="Filtrar" icon="ui-icon-search"
                                          update="listagem"/>
-                         <p:commandButton value="Primeiro"
-                                          actionListener="#{controleInstituicao.dao.primeiro()}"
+                        <p:commandButton value="Primeiro"
+                                         actionListener="#{controleInstituicao.dao.primeiro()}"
                                          update="listagem"
                                          icon="ui-icon-seek-first"/>
                         <p:commandButton value="Anterior"
@@ -47,9 +48,9 @@
                     </p:panelGrid>
                 </div>
                 <p:dataTable value="#{controleInstituicao.dao.listaObjetos}" var="obj" id="listagem">
-                    
-                     <f:facet name="footer">
-                         <p:outputLabel value="#{controleInstituicao.dao.mensagemNavegacao}"/>
+
+                    <f:facet name="footer">
+                        <p:outputLabel value="#{controleInstituicao.dao.mensagemNavegacao}"/>
                     </f:facet>
 
                     <p:column headerText="ID">
@@ -58,20 +59,58 @@
                     <p:column headerText="Nome">
                         <p:outputLabel value="#{obj.nome}"/>
                     </p:column> 
-                     <p:column headerText="Ano de Fundação">
-                         <p:outputLabel value="#{obj.anoFundacao}">
+                    <p:column headerText="Ano de Fundação">
+                        <p:outputLabel value="#{obj.anoFundacao}">
                             <f:converter converterId="converterAno"/>
                         </p:outputLabel> 
                     </p:column>
                     <p:column headerText="Ações">
                         <div align="center">
-                            <p:commandButton action="#{controleInstituicao.editar(obj.id)}" icon="ui-icon-pencil" ajax="false" title="Editar"/>
+                            <p:commandButton actionListener="#{controleInstituicao.editar(obj.id)}" icon="ui-icon-pencil" title="Editar"
+                                             update=":formEdicao" process="@this" oncomplete="PF('dlg').show();" />
                             <p:commandButton action="#{controleInstituicao.remover(obj.id)}" icon="ui-icon-trash" title="Remover" process="@form" update="@form" onclick="if (!confirm('Confirma a exclusão?'))
                                         return false"/>
                         </div>
                     </p:column>
                 </p:dataTable>
             </h:form>
+        </ui:define>
+        <ui:define name="dialogos">
+            <p:dialog header="Edição da Instituição" widgetVar="dlg"
+                      resizable="false" modal="true" width="550" height="215">
+                <h:form id="formEdicao">
+                    <p:growl id="growl"/>
+                    <p:tabView id="tab">
+                        <p:tab title="Dados da Instituição">
+                            <div align="center">
+                                <p:panelGrid columns="2">
+                                    <p:outputLabel value="Id" rendered="#{controleInstituicao.objeto.id != null}"/>
+                                    <p:inputText value="#{controleInstituicao.objeto.id}" readonly="true" rendered="#{controleInstituicao.objeto.id != null}"/>
+
+                                    <p:outputLabel value="Nome" for="txtNome"/>
+                                    <p:inputText id="txtNome" value="#{controleInstituicao.objeto.nome}"
+                                                 size="50" maxlength="50" placeholder="Obrigatório"/>
+
+                                    <p:outputLabel value="Ano de Fundação" for="txtData"/>
+                                    <p:inputMask id="txtData" value="#{controleInstituicao.objeto.anoFundacao}" mask="9999" >
+                                        <f:converter converterId="converterAno"/>
+                                    </p:inputMask>
+
+                                </p:panelGrid>
+                            </div>
+                        </p:tab>
+                    </p:tabView>
+                    <p:panel>
+                        <div align="center">
+                            <p:commandButton actionListener="#{controleInstituicao.salvar()}"
+                                             update=":formListagem :formEdicao"
+                                             value="Salvar" icon="ui-icon-disk"
+                                             oncomplete="if (!args.validationFailed){ PF('dlg').hide();}"/>
+                        </div>
+                    </p:panel>
+                </h:form>          
+
+            </p:dialog>
         </ui:define>
     </ui:composition>
 </html>

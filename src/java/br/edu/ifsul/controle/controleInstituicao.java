@@ -30,12 +30,11 @@ public class controleInstituicao {
         return "/privado/instituicao/listar?faces-redirect=true";
     }
 
-    public String novo() {
+    public void novo() {
         objeto = new Instituicao();
-        return "formulario?faces-redirect=true";
     }
 
-    public String salvar() {
+    public void salvar() {
         boolean persistiu;
         if (objeto.getId() == null) {
             persistiu = dao.persist(objeto);
@@ -44,10 +43,8 @@ public class controleInstituicao {
         }
         if (persistiu) {
             Util.mensagemInformacao(dao.getMensagem());
-            return "listar?faces-redirect=true";
         } else {
             Util.mensagemErro(dao.getMensagem());
-            return "formulario?faces-redirect=true";
         }
     }
 
@@ -55,9 +52,8 @@ public class controleInstituicao {
         return "listar?faces-redirect=true";
     }
 
-    public String editar(Integer id) {
+    public void editar(Integer id) {
         objeto = dao.localizar(id);
-        return "formulario?faces-redirect=true";
     }
 
     public void remover(Integer id) {

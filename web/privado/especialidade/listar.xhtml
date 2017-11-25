@@ -8,10 +8,11 @@
     <ui:composition template="/templates/template.xhtml">
         <ui:define name="titulo">Listagem de Especialidades</ui:define>
         <ui:define name="conteudo">
-            <h:form>
+            <h:form id="formListagem">
                 <p:messages/>
                 <p:growl/>
-                <p:commandButton value="Novo" action="#{controleEspecialidade.novo()}" ajax="false" icon="ui-icon-plus"/>
+                <p:commandButton value="Novo" actionListener="#{controleEspecialidade.novo()}"  icon="ui-icon-plus" 
+                                 update=":formEdicao" process="@this" oncomplete="PF('dlg').show();"/>
 
                 <div align="center">
                     <p:panelGrid columns="11">
@@ -60,13 +61,44 @@
 
                     <p:column headerText="Ações">
                         <div align="center">
-                            <p:commandButton action="#{controleEspecialidade.editar(obj.id)}" icon="ui-icon-pencil" ajax="false" title="Editar"/>
+                            <p:commandButton action="#{controleEspecialidade.editar(obj.id)}" icon="ui-icon-pencil" title="Editar" 
+                                             update=":formEdicao" process="@this" oncomplete="PF('dlg').show();"/>
                             <p:commandButton action="#{controleEspecialidade.remover(obj.id)}" icon="ui-icon-trash" title="Remover" process="@form" update="@form" onclick="if (!confirm('Confirma a exclusão?'))
                                         return false"/>
                         </div>
                     </p:column>
                 </p:dataTable>
             </h:form>
+        </ui:define>
+        <ui:define name="dialogos">
+            <p:dialog header="Edição da Especialidade" widgetVar="dlg"
+                      resizable="false" modal="true" width="550" height="175">
+                <h:form id="formEdicao">
+                    <p:growl id="growl"/>
+                    <p:tabView id="tab">
+                        <p:tab title="Dados da Instituição">
+                            <div align="center">
+                                <p:panelGrid columns="2">
+                                    <p:outputLabel value="Id" rendered="#{controleEspecialidade.objeto.id != null}"/>
+                                    <p:inputText value="#{controleEspecialidade.objeto.id}" readonly="true" rendered="#{controleEspecialidade.objeto.id != null}"/>
+
+                                    <p:outputLabel value="Nome" for="txtNome"/>
+                                    <p:inputText id="txtNome" value="#{controleEspecialidade.objeto.nome}" size="50" maxlength="50" placeholder="Obrogatório"/>
+                                </p:panelGrid>
+                            </div>
+                        </p:tab>
+                    </p:tabView>
+                    <p:panel>
+                        <div align="center">
+                            <p:commandButton actionListener="#{controleEspecialidade.salvar()}"
+                                             update=":formListagem :formEdicao"
+                                             value="Salvar" icon="ui-icon-disk"
+                                             oncomplete="if (!args.validationFailed){ PF('dlg').hide();}"/>
+                        </div>
+                    </p:panel>
+                </h:form>
+            </p:dialog>
+
         </ui:define>
     </ui:composition>
 </html>

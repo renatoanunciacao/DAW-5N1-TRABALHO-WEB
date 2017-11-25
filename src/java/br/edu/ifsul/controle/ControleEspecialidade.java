@@ -31,12 +31,11 @@ public class ControleEspecialidade {
         return "/privado/especialidade/listar?faces-redirect=true";
     }
 
-    public String novo() {
+    public void novo() {
         objeto = new Especialidade();
-        return "formulario?faces-redirect=true";
     }
 
-    public String salvar() {
+    public void salvar() {
         boolean persistiu;
         if (objeto.getId() == null) {
             persistiu = dao.persist(objeto);
@@ -45,10 +44,8 @@ public class ControleEspecialidade {
         }
         if (persistiu) {
             Util.mensagemInformacao(getDao().getMensagem());
-            return "listar?faces-redirect=true";
         } else {
             Util.mensagemErro(getDao().getMensagem());
-            return "formulario?faces-redirect=true";
         }
     }
 
@@ -56,9 +53,8 @@ public class ControleEspecialidade {
         return "listar?faces-redirect=true";
     }
 
-    public String editar(Integer id) {
+    public void editar(Integer id) {
         objeto = dao.localizar(id);
-        return "formulario?faces-redirect=true";
     }
 
     public void remover(Integer id) {
