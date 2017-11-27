@@ -6,7 +6,11 @@
 package br.edu.ifsul.controle;
 
 import br.edu.ifsul.dao.AlunoDAO;
+import br.edu.ifsul.dao.DisciplinaDAO;
+import br.edu.ifsul.dao.InstituicaoDAO;
 import br.edu.ifsul.modelo.Aluno;
+import br.edu.ifsul.modelo.Disciplina;
+import br.edu.ifsul.modelo.Instituicao;
 import br.edu.ifsul.util.Util;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -21,6 +25,7 @@ public class ControleAluno {
 
     private AlunoDAO<Aluno> dao;
     private Aluno objeto;
+        
 
     public ControleAluno() {
         dao = new AlunoDAO<>();
