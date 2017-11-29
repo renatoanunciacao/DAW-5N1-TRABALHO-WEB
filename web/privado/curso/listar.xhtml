@@ -102,10 +102,8 @@
                                                  maxlength="40" placeholder="Obrigatório"/>
 
                                     <p:outputLabel value="Descrição" for="txtDescricao"/>
-                                    <p:editor value="#{controleCurso.objeto.descricao}" width="300"
-                                              height="180"
-                                              id="txtDescricao"
-                                              />
+                                    <p:editor value="#{controleCurso.objeto.descricao}"
+                                              width="300" height="180" id="txtDescricao"/>
 
                                     <p:outputLabel for="checkAtivo" value="Ativo" />
                                     <p:selectBooleanCheckbox value="#{controleCurso.objeto.ativo}"
@@ -134,7 +132,7 @@
                         </p:tab>
                         <p:tab title="Disciplinas">
                             <p:dataTable value="#{controleCurso.objeto.disciplinas}"
-                                         var="dis" rowIndexVar="idxdis" id="listaDisciplinas">
+                                         var="dis" rowIndexVar="index" id="listaDisciplinas">
                                 <f:facet name="header">
                                     <p:commandButton value="Nova Disciplina"
                                                      actionListener="#{controleCurso.novaDisciplina()}"
@@ -164,7 +162,7 @@
                                                      oncomplete="PF('dlgDisciplina').show();"
                                                      />
 
-                                    <p:commandButton actionListener="#{controleCurso.removerDisciplina(idxdis)}"
+                                    <p:commandButton actionListener="#{controleCurso.removerDisciplina(index)}"
                                                      process="@this"
                                                      update="listaDisciplinas :formEdicao:growl"
                                                      icon="ui-icon-trash" />
@@ -175,9 +173,9 @@
                     </p:tabView>
                     <p:panel>
                         <div align="center">
-                            <p:commandButton actionListener="#{controleCurso.salvar()}"
+                            <p:commandButton value="Salvar" icon="ui-icon-disk"
+                                             actionListener="#{controleCurso.salvar()}"
                                              update=":formListagem :formEdicao"
-                                             value="Salvar" icon="ui-icon-disk"
                                              oncomplete="if (!args.validationFailed){ PF('dlg').hide();}"/>
                         </div>
                     </p:panel>
@@ -194,7 +192,6 @@
                                                  action="#{controleCurso.adicionarDisciplina()}"
                                                  update=":formEdicao:tab:listaDisciplinas"
                                                  process=":formDisciplina"
-                                                 id="btnSalvarDisciplina"
                                                  oncomplete="if(!args.validationFailed) PF('dlgDisciplina').hide();"/>
                             </div>
                         </f:facet>
