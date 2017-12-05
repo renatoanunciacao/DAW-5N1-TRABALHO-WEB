@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatoriocursos" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cda0c006-0bee-466f-a212-4e1c6a9d5026">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Cursos"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="iniciAtividades" class="java.util.Calendar">
+		<fieldDescription><![CDATA[iniciAtividades]]></fieldDescription>
+	</field>
+	<field name="sigla" class="java.lang.String">
+		<fieldDescription><![CDATA[sigla]]></fieldDescription>
+	</field>
+	<field name="instituicao" class="br.edu.ifsul.modelo.Instituicao">
+		<fieldDescription><![CDATA[instituicao]]></fieldDescription>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[nome]]></fieldDescription>
+	</field>
+	<field name="descricao" class="java.lang.String">
+		<fieldDescription><![CDATA[descricao]]></fieldDescription>
+	</field>
+	<field name="disciplinas" class="java.util.List">
+		<fieldDescription><![CDATA[disciplinas]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="79" backcolor="#3B7A5F" uuid="0d088abf-ebb4-4e4e-b5d6-63c5cb7585f6"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="79" uuid="50b30133-a788-4d85-bed4-7c8249000812"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="19" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatórios dos Cursos]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="384" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="150" uuid="6c1c0906-81d2-4ed9-9530-c7a0e8e7825b"/>
+			</rectangle>
+			<textField>
+				<reportElement x="89" y="30" width="311" height="30" uuid="46992868-0ee6-4415-b9a9-0ded41f9a7bb"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="30" width="79" height="30" uuid="372dd3d1-13ec-41a3-9769-a9277ea52b80"/>
+				<text><![CDATA[Nome do Curso:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="460" y="30" width="60" height="30" uuid="bd9ad281-b2a7-435b-aa25-5c94b0e2f031"/>
+				<textFieldExpression><![CDATA[$F{sigla}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="420" y="30" width="39" height="30" uuid="9a015e1c-e987-4bd0-827a-8d3a7c7c1882"/>
+				<text><![CDATA[Sigla:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="110" y="70" width="410" height="30" uuid="7efac216-2e20-4ef3-9f43-7bcb2aa209d6"/>
+				<textFieldExpression><![CDATA[$F{instituicao}.getNome()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="70" width="99" height="30" uuid="2fa7e6f7-fb19-4e7c-ab43-4d28b569c5e3"/>
+				<text><![CDATA[Nome da Instituição:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="69" y="120" width="230" height="30" uuid="a3760bac-15c1-471d-a943-1a8b4597359d"/>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="120" width="59" height="30" uuid="46972d70-b6f0-4fdb-a60b-15ede18917fa"/>
+				<text><![CDATA[Descrição: ]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="410" y="120" width="100" height="30" uuid="0db1ea6f-a41b-422c-b4af-665246cdacfd"/>
+				<textFieldExpression><![CDATA[$F{iniciAtividades}.getTime()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="310" y="120" width="100" height="30" uuid="8ba64fde-1de9-42d0-a2e9-6a088d9194f9"/>
+				<text><![CDATA[Inicio das Atividades:]]></text>
+			</staticText>
+			<subreport>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="150" width="555" height="40" uuid="d571e45e-7811-4c55-9ae5-730deeba676c">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(
+	(java.util.List<br.edu.ifsul.modelo.Disciplina>)$F{disciplinas}
+) ]]></dataSourceExpression>
+				<subreportExpression><![CDATA["subDisciplinas.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="58" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="10" y="20" width="100" height="30" uuid="c1e69092-386a-495f-b5c3-2b1f9a9a38cf"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="330" y="20" width="100" height="30" uuid="f87712b4-1893-4071-954a-12b52fb3d9f4"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="430" y="20" width="100" height="30" uuid="03cedda4-7874-41de-85e6-be3fc4774d82"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

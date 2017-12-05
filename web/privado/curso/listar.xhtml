@@ -13,6 +13,8 @@
                 <p:growl/>
                 <p:commandButton value="Novo" actionListener="#{controleCurso.novo()}" icon="ui-icon-plus"
                                  update=":formEdicao" process="@this" oncomplete="PF('dlg').show();"/>
+                <p:commandButton value="Relatório" action="#{controleCurso.imprimirRelatorio()}"
+                                 onclick="this.form.target='_blank';" ajax="false" />
                 <div align="center">
                     <p:panelGrid columns="11">
                         <p:outputLabel value="Ordem"/>
