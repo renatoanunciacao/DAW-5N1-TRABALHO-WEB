@@ -7,6 +7,8 @@ import br.edu.ifsul.modelo.Curso;
 import br.edu.ifsul.modelo.Disciplina;
 import br.edu.ifsul.modelo.Instituicao;
 import br.edu.ifsul.util.Util;
+import br.edu.ifsul.util.UtilRelatorios;
+import java.util.HashMap;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -14,9 +16,9 @@ import javax.faces.bean.SessionScoped;
  *
  * @author Renato
  */
-@ManagedBean(name = "controleCurso")
+@ManagedBean(name = "controleCurso2")
 @SessionScoped
-public class ControleCurso {
+public class ControleCurso2 {
 
     private CursoDAO<Curso> dao;
     private Curso objeto;
@@ -25,17 +27,22 @@ public class ControleCurso {
     private Disciplina disciplina;
     private DisciplinaDAO<Disciplina> daoDisciplina;
 
-    public ControleCurso() {
+    public ControleCurso2() {
         dao = new CursoDAO<>();
         daoInstituicao = new InstituicaoDAO<>();
         daoDisciplina = new DisciplinaDAO<>();
     }
-    
-    public void adicionarDisciplina(){
+
+    public void imprimirRelatorio() {
+        HashMap parametros = new HashMap();
+        UtilRelatorios.imprimeRelatorio("relatoriocursos", parametros, dao.getListaTodos());
+    }
+
+    public void adicionarDisciplina() {
         disciplina.setCurso(objeto);
         objeto.getDisciplinas().add(disciplina);
     }
-    
+
     public void novaDisciplina() {
         disciplina = new Disciplina();
         passou = true;
@@ -46,10 +53,10 @@ public class ControleCurso {
         objeto.removerDisciplina(index);
     }
 
-    public void removerDisciplina(int index){
+    public void removerDisciplina(int index) {
         objeto.getDisciplinas().remove(index);
     }
-    
+
     public String listar() {
         return "/privado/curso/listar?faces-redirect=true";
     }
