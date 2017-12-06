@@ -16,9 +16,9 @@ import javax.faces.bean.SessionScoped;
  *
  * @author Renato
  */
-@ManagedBean(name = "controleCurso2")
+@ManagedBean(name = "controleCurso")
 @SessionScoped
-public class ControleCurso2 {
+public class ControleCurso {
 
     private CursoDAO<Curso> dao;
     private Curso objeto;
@@ -27,7 +27,7 @@ public class ControleCurso2 {
     private Disciplina disciplina;
     private DisciplinaDAO<Disciplina> daoDisciplina;
 
-    public ControleCurso2() {
+    public ControleCurso() {
         dao = new CursoDAO<>();
         daoInstituicao = new InstituicaoDAO<>();
         daoDisciplina = new DisciplinaDAO<>();
